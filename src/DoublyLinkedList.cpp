@@ -10,14 +10,14 @@ int DoublyLinkedList::size() const {
 }
 
 DoublyLinkedList::DoublyLinkedList(int value) {
-    Node *newHeadNode = new Node{.value = value};
+    auto newHeadNode = std::make_shared<Node>(Node{.value = value});
     this->headNode = newHeadNode;
     this->tailNode = newHeadNode;
     this->numOfElements = 1;
 }
 
 void DoublyLinkedList::add(int value) {
-    Node *newNode = new Node{.value = value};
+    auto newNode = std::make_shared<Node>(Node{.value = value});
     newNode->prev = this->tailNode;
     this->tailNode->next = newNode;
     this->tailNode = newNode;
@@ -32,7 +32,7 @@ int DoublyLinkedList::at(int index) {
     }
 
     int i = 0;
-    Node *currentNode = this->headNode;
+    auto currentNode = this->headNode;
     while (i < index) {
         currentNode = currentNode->next;
         i++;
@@ -44,13 +44,13 @@ void DoublyLinkedList::insert(int index, int value) {
     if (index >= size()-1) add(value);
 
     int i = 0;
-    Node *currentNode = headNode;
+    auto currentNode = headNode;
     while (i < index - 1) {
         currentNode = currentNode->next;
         i++;
     }
-    Node *newNode = new Node{.value = value};
-    Node *nextNode = currentNode->next;
+    auto newNode = std::make_shared<Node>(Node{.value = value});
+    auto nextNode = currentNode->next;
 
     currentNode->next = newNode;
     newNode->prev = currentNode;
@@ -71,7 +71,7 @@ int DoublyLinkedList::tail() {
 std::string DoublyLinkedList::toString() {
     std::stringstream ss;
     ss << "[";
-    Node* currentNode = headNode;
+    auto currentNode = headNode;
     ss << currentNode->value;
     int i = 1;
     while (i < size()) {
@@ -94,7 +94,7 @@ void DoublyLinkedList::deleteAt(int index) {
     }
 
     int i = 0;
-    Node* currentNode = headNode;
+    auto currentNode = headNode;
     while (i < index) {
         currentNode = currentNode->next;
         i++;
@@ -110,7 +110,7 @@ void DoublyLinkedList::dropLast() {
 int DoublyLinkedList::find(int value) {
     int i = 0;
     int result = -1;
-    Node* currentNode = headNode;
+    auto currentNode = headNode;
     do {
         if (currentNode->value == value) result = i;
         i ++;

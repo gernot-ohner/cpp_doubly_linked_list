@@ -10,11 +10,9 @@
 
 // start simple, just it's just a DLL of integers
 struct Node {
-//    std::unique_ptr<Node> next;
     int value;
-//    std::unique_ptr<Node> prev;
-    Node* next;
-    Node* prev;
+    std::shared_ptr<Node> next;
+    std::shared_ptr<Node> prev;
 };
 
 class DoublyLinkedList {
@@ -36,8 +34,8 @@ public:
     int find(int value);
 
 private:
-    Node* headNode;
-    Node* tailNode;
+    std::shared_ptr<Node> headNode;
+    std::shared_ptr<Node> tailNode;
     int numOfElements;
 
     void dropLast();
