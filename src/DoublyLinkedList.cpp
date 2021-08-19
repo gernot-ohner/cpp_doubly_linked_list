@@ -17,8 +17,8 @@ DoublyLinkedList::DoublyLinkedList(int value) {
 }
 
 void DoublyLinkedList::add(int value) {
-    // TODO this does not handle setting prev right
     Node *newNode = new Node{.value = value};
+    newNode->prev = this->tailNode;
     this->tailNode->next = newNode;
     this->tailNode = newNode;
     this->numOfElements++;
@@ -41,10 +41,8 @@ int DoublyLinkedList::at(int index) {
 }
 
 void DoublyLinkedList::insert(int index, int value) {
-    // TODO this does not handle updating tailNode right
-    // TODO this also doesn't handle the case where index is too large right
-    // TODO this also doesn't handle the case where index points to one past the last current index
-    //   i.e. where you want to insert an element in the last position (i.e. add)
+    if (index >= size()-1) add(value);
+
     int i = 0;
     Node *currentNode = headNode;
     while (i < index - 1) {
@@ -54,16 +52,10 @@ void DoublyLinkedList::insert(int index, int value) {
     Node *newNode = new Node{.value = value};
     Node *nextNode = currentNode->next;
 
-    // currentnode->next = newnode
     currentNode->next = newNode;
-    // newnode->previous = currentnode
     newNode->prev = currentNode;
-    // nextnode->previous = newnode
     nextNode->prev = newNode;
-    // newnode->next = nextnode
     newNode->next = nextNode;
-
-
 
     numOfElements++;
 }

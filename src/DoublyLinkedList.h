@@ -20,12 +20,15 @@ struct Node {
 class DoublyLinkedList {
 public:
     explicit DoublyLinkedList(int value);
-    void add(int value);
+
     [[nodiscard]] int size() const;
     int at(int index);
-    void insert(int index, int value);
     int head();
     int tail();
+
+    void insert(int index, int value);
+    void add(int value);
+
     std::string toString();
 
 private:
