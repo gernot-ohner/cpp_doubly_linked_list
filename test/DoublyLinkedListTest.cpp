@@ -76,3 +76,15 @@ TEST_CASE("DLL contains inserted elements at right index") {
 
 // TODO add a test testing head()
 // TODO add a test testing tail()
+
+TEST_CASE("Can represent the DLL as a string") {
+    // given
+    auto dll = *createSampleList();
+    std::string expected = "[1,5,10,42]";
+
+    // when
+    std::string actual = dll.toString();
+
+    // then
+    REQUIRE(actual == expected);
+}

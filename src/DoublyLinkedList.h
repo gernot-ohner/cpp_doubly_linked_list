@@ -26,6 +26,7 @@ public:
     void insert(int index, int value);
     int head();
     int tail();
+    std::string toString();
 
 private:
     Node* headNode;

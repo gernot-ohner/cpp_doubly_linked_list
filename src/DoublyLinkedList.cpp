@@ -75,3 +75,18 @@ int DoublyLinkedList::head() {
 int DoublyLinkedList::tail() {
     return this->tailNode->value;
 }
+
+std::string DoublyLinkedList::toString() {
+    std::stringstream ss;
+    ss << "[";
+    Node* currentNode = headNode;
+    ss << currentNode->value;
+    int i = 1;
+    while (i < size()) {
+        i++;
+        currentNode = currentNode->next;
+        ss << "," << currentNode->value ;
+    }
+    ss << "]";
+    return ss.str();
+}
