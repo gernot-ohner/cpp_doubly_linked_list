@@ -89,29 +89,40 @@ TEST_CASE("Can access the first element by calling tail() after inserting at las
     REQUIRE(dll.tail() == 8);
 }
 
-// TODO implement this functionality
-//TEST_CASE("DLL can delete a node") {
-//    // given
-//    DoublyLinkedList doublyLinkedList {1};
-//    doublyLinkedList.add(5);
-//    doublyLinkedList.add(10);
-//    doublyLinkedList.add(42);
-//
-//    // when
-//
-////    doublyLinkedList.delete(2);
-//    int at0 = doublyLinkedList.at(0);
-//    int at1 = doublyLinkedList.at(1);
-//    int at2 = doublyLinkedList.at(2);
-//
-//    // then
-//    REQUIRE(at0 == 1);
-//    REQUIRE(at1 == 5);
-//    REQUIRE(at2 == 42);
-//}
+TEST_CASE("DLL can delete a node") {
+    // given
+    auto dll = *createSampleList();
 
-// TODO add a test testing head()
-// TODO add a test testing tail()
+    // when
+    dll.deleteAt(2);
+
+    // then
+    REQUIRE(dll.at(0) == 1);
+    REQUIRE(dll.at(1) == 5);
+    REQUIRE(dll.at(2) == 42);
+}
+
+TEST_CASE("DLL can delete the last node") {
+    // given
+    auto dll = *createSampleList();
+
+    // when
+    dll.deleteAt(3);
+
+    // then
+    REQUIRE(dll.at(0) == 1);
+    REQUIRE(dll.at(1) == 5);
+    REQUIRE(dll.at(2) == 10);
+}
+
+TEST_CASE("Exception is thrown if index to delete is too large") {
+    // given
+    auto dll = *createSampleList();
+
+    // when
+    // then
+    REQUIRE_THROWS_AS(dll.deleteAt(5), std::out_of_range);
+}
 
 TEST_CASE("Can represent the DLL as a string") {
     // given

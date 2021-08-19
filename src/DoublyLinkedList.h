@@ -31,10 +31,14 @@ public:
 
     std::string toString();
 
+    void deleteAt(int index);
+
 private:
     Node* headNode;
     Node* tailNode;
     int numOfElements;
+
+    void dropLast();
 };
 
 

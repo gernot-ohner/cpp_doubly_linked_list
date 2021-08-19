@@ -82,3 +82,27 @@ std::string DoublyLinkedList::toString() {
     ss << "]";
     return ss.str();
 }
+
+void DoublyLinkedList::deleteAt(int index) {
+    if (index == size() - 1) {
+        dropLast();
+        return;
+    } else if (index > size() - 1) {
+        std::stringstream ss;
+        ss << "Index " << index << " is out of range for list of size " << size() << std::endl;
+        throw std::out_of_range(ss.str());
+    }
+
+    int i = 0;
+    Node* currentNode = headNode;
+    while (i < index) {
+        currentNode = currentNode->next;
+        i++;
+    }
+    currentNode->prev->next = currentNode->next;
+    currentNode->next->prev = currentNode->prev;
+}
+
+void DoublyLinkedList::dropLast() {
+    tailNode = tailNode->prev;
+}
