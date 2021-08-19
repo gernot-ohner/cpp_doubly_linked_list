@@ -24,8 +24,8 @@ public:
     [[nodiscard]] int size() const;
     int at(int index);
     void insert(int index, int value);
-    Node* head();
-    Node* tail();
+    int head();
+    int tail();
 
 private:
     Node* headNode;

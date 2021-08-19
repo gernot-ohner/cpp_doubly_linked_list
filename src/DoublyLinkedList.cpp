@@ -68,10 +68,10 @@ void DoublyLinkedList::insert(int index, int value) {
     numOfElements++;
 }
 
-Node *DoublyLinkedList::head() {
-    return this->headNode;
+int DoublyLinkedList::head() {
+    return this->headNode->value;
 }
 
-Node *DoublyLinkedList::tail() {
-    return this->tailNode;
+int DoublyLinkedList::tail() {
+    return this->tailNode->value;
 }
