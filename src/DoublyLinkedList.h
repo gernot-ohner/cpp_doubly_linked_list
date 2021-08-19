@@ -33,6 +33,8 @@ public:
 
     void deleteAt(int index);
 
+    int find(int value);
+
 private:
     Node* headNode;
     Node* tailNode;

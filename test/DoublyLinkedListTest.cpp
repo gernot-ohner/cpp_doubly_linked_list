@@ -135,3 +135,27 @@ TEST_CASE("Can represent the DLL as a string") {
     // then
     REQUIRE(actual == expected);
 }
+
+TEST_CASE("Can find an element that exists by value") {
+    // given
+    auto dll = *createSampleList();
+    int expected = 2;
+
+    // when
+    int actual = dll.find(10);
+
+    // then
+    REQUIRE(actual == expected);
+}
+
+TEST_CASE("Can handle a request to find an element that doesn't exist") {
+    // given
+    auto dll = *createSampleList();
+    int expected = -1;
+
+    // when
+    int actual = dll.find(100);
+
+    // then
+    REQUIRE(actual == expected);
+}

@@ -106,3 +106,16 @@ void DoublyLinkedList::deleteAt(int index) {
 void DoublyLinkedList::dropLast() {
     tailNode = tailNode->prev;
 }
+
+int DoublyLinkedList::find(int value) {
+    int i = 0;
+    int result = -1;
+    Node* currentNode = headNode;
+    do {
+        if (currentNode->value == value) result = i;
+        i ++;
+        currentNode = currentNode->next;
+    } while (currentNode->next);
+
+    return result;
+}
