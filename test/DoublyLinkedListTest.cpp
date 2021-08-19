@@ -45,13 +45,49 @@ TEST_CASE("DLL contains inserted elements at right index") {
     REQUIRE(dll.at(4) == 42);
 }
 
-//TEST_CASE("Can access the first element by calling head()") {
-//    auto dll = createSampleList();
-//
-//
-//
-//}
+TEST_CASE("Can access the first element by calling head()") {
+    // given
+    auto dll = *createSampleList();
 
+    // when
+    auto head = dll.head();
+
+    // then
+    REQUIRE(head == 1);
+}
+
+TEST_CASE("Can access the first element by calling tail()") {
+    // given
+    auto dll = *createSampleList();
+
+    // when
+    auto head = dll.tail();
+
+    // then
+    REQUIRE(head == 42);
+}
+
+TEST_CASE("Can access the first element by calling tail() after inserting") {
+    // given
+    auto dll = *createSampleList();
+
+    // when
+    dll.insert(2, 8);
+
+    // then
+    REQUIRE(dll.tail() == 42);
+}
+
+TEST_CASE("Can access the first element by calling tail() after inserting at last position") {
+    // given
+    auto dll = *createSampleList();
+
+    // when
+    dll.insert(dll.size() - 1, 8);
+
+    // then
+    REQUIRE(dll.tail() == 8);
+}
 
 // TODO implement this functionality
 //TEST_CASE("DLL can delete a node") {
