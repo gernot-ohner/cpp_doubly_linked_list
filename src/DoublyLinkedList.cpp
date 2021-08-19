@@ -6,14 +6,14 @@
 #include "DoublyLinkedList.h"
 
 int DoublyLinkedList::size() const {
-    return this->num_of_elements;
+    return this->numOfElements;
 }
 
 DoublyLinkedList::DoublyLinkedList(int value) {
     Node *newHeadNode = new Node{.value = value};
     this->headNode = newHeadNode;
     this->tailNode = newHeadNode;
-    this->num_of_elements = 1;
+    this->numOfElements = 1;
 }
 
 void DoublyLinkedList::add(int value) {
@@ -21,7 +21,7 @@ void DoublyLinkedList::add(int value) {
     Node *newNode = new Node{.value = value};
     this->tailNode->next = newNode;
     this->tailNode = newNode;
-    this->num_of_elements++;
+    this->numOfElements++;
 }
 
 int DoublyLinkedList::at(int index) {
@@ -64,7 +64,8 @@ void DoublyLinkedList::insert(int index, int value) {
     newNode->next = nextNode;
 
 
-    num_of_elements++;
+
+    numOfElements++;
 }
 
 Node *DoublyLinkedList::head() {

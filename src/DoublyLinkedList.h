@@ -30,7 +30,7 @@ public:
 private:
     Node* headNode;
     Node* tailNode;
-    int num_of_elements;
+    int numOfElements;
 };
 
 
