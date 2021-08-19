@@ -5,58 +5,52 @@
 #include "catch.hpp"
 #include "../src/DoublyLinkedList.h"
 
-TEST_CASE("DLL contains added elements at right indices") {
-    // given
-    DoublyLinkedList doublyLinkedList {1};
-    doublyLinkedList.add(5);
-    doublyLinkedList.add(10);
-    doublyLinkedList.add(42);
+DoublyLinkedList * createSampleList() {
+    auto *dll = new DoublyLinkedList{1};
+    dll->add(5);
+    dll->add(10);
+    dll->add(42);
+    return dll;
+}
 
+TEST_CASE("DLL contains added elements at right indices") {
     // when
-    int at0 = doublyLinkedList.at(0);
-    int at1 = doublyLinkedList.at(1);
-    int at2 = doublyLinkedList.at(2);
-    int at3 = doublyLinkedList.at(3);
+    auto dll = *createSampleList();
 
     // then
-    REQUIRE(at0 == 1);
-    REQUIRE(at1 == 5);
-    REQUIRE(at2 == 10);
-    REQUIRE(at3 == 42);
+    REQUIRE(dll.at(0) == 1);
+    REQUIRE(dll.at(1) == 5);
+    REQUIRE(dll.at(2) == 10);
+    REQUIRE(dll.at(3) == 42);
 }
 
 
 TEST_CASE("DLL throws exception if index is too large") {
-
-    DoublyLinkedList dll {1};
-
+    DoublyLinkedList dll{1};
     REQUIRE_THROWS_AS(dll.at(5), std::out_of_range);
 }
 
 TEST_CASE("DLL contains inserted elements at right index") {
     // given
-    DoublyLinkedList doublyLinkedList {1};
-    doublyLinkedList.add(5);
-    doublyLinkedList.add(10);
-    doublyLinkedList.add(42);
+    auto dll = *createSampleList();
 
     // when
-
-    // insert now in
-    doublyLinkedList.insert(2, 8);
-    int at0 = doublyLinkedList.at(0);
-    int at1 = doublyLinkedList.at(1);
-    int at2 = doublyLinkedList.at(2);
-    int at3 = doublyLinkedList.at(3);
-    int at4 = doublyLinkedList.at(4);
+    dll.insert(2, 8);
 
     // then
-    REQUIRE(at0 == 1);
-    REQUIRE(at1 == 5);
-    REQUIRE(at2 == 8);
-    REQUIRE(at3 == 10);
-    REQUIRE(at4 == 42);
+    REQUIRE(dll.at(0) == 1);
+    REQUIRE(dll.at(1) == 5);
+    REQUIRE(dll.at(2) == 8);
+    REQUIRE(dll.at(3) == 10);
+    REQUIRE(dll.at(4) == 42);
 }
+
+//TEST_CASE("Can access the first element by calling head()") {
+//    auto dll = createSampleList();
+//
+//
+//
+//}
 
 
 // TODO implement this functionality
