@@ -10,28 +10,28 @@
 
 // start simple, just it's just a DLL of integers
 struct Node {
-    int value;
+    std::shared_ptr<std::string> value;
     std::shared_ptr<Node> next;
     std::shared_ptr<Node> prev;
 };
 
 class DoublyLinkedList {
 public:
-    explicit DoublyLinkedList(int value);
+    explicit DoublyLinkedList(std::string value);
 
     [[nodiscard]] int size() const;
-    int at(int index);
-    int head();
-    int tail();
+    std::string at(int index);
+    std::string head();
+    std::string tail();
 
-    void insert(int index, int value);
-    void add(int value);
+    void insert(int index, std::string value);
+    void add(std::string value);
 
     std::string toString();
 
     void deleteAt(int index);
 
-    int find(int value);
+    int find(std::string value);
 
 private:
     std::shared_ptr<Node> headNode;

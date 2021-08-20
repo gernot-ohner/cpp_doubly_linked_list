@@ -9,22 +9,22 @@ int DoublyLinkedList::size() const {
     return this->numOfElements;
 }
 
-DoublyLinkedList::DoublyLinkedList(int value) {
-    auto newHeadNode = std::make_shared<Node>(Node{.value = value});
+DoublyLinkedList::DoublyLinkedList(std::string value) {
+    auto newHeadNode = std::make_shared<Node>(Node{.value = std::make_shared<std::string>(value)});
     this->headNode = newHeadNode;
     this->tailNode = newHeadNode;
     this->numOfElements = 1;
 }
 
-void DoublyLinkedList::add(int value) {
-    auto newNode = std::make_shared<Node>(Node{.value = value});
+void DoublyLinkedList::add(std::string value) {
+    auto newNode = std::make_shared<Node>(Node{.value = std::make_shared<std::string>(value)});
     newNode->prev = this->tailNode;
     this->tailNode->next = newNode;
     this->tailNode = newNode;
     this->numOfElements++;
 }
 
-int DoublyLinkedList::at(int index) {
+std::string DoublyLinkedList::at(int index) {
     if (index >= size()) {
         std::stringstream message;
         message << "Index " << index << " is out of range for list of size " << size() << std::endl;
@@ -37,10 +37,10 @@ int DoublyLinkedList::at(int index) {
         currentNode = currentNode->next;
         i++;
     }
-    return currentNode->value;
+    return *currentNode->value;
 }
 
-void DoublyLinkedList::insert(int index, int value) {
+void DoublyLinkedList::insert(int index, std::string value) {
     if (index >= size()-1) add(value);
 
     int i = 0;
@@ -49,7 +49,8 @@ void DoublyLinkedList::insert(int index, int value) {
         currentNode = currentNode->next;
         i++;
     }
-    auto newNode = std::make_shared<Node>(Node{.value = value});
+    auto newNode = std::make_shared<Node>(
+            Node{.value = std::make_shared<std::string>(value)});
     auto nextNode = currentNode->next;
 
     currentNode->next = newNode;
@@ -60,12 +61,12 @@ void DoublyLinkedList::insert(int index, int value) {
     numOfElements++;
 }
 
-int DoublyLinkedList::head() {
-    return this->headNode->value;
+std::string DoublyLinkedList::head() {
+    return *this->headNode->value;
 }
 
-int DoublyLinkedList::tail() {
-    return this->tailNode->value;
+std::string DoublyLinkedList::tail() {
+    return *this->tailNode->value;
 }
 
 std::string DoublyLinkedList::toString() {
@@ -107,12 +108,12 @@ void DoublyLinkedList::dropLast() {
     tailNode = tailNode->prev;
 }
 
-int DoublyLinkedList::find(int value) {
+int DoublyLinkedList::find(std::string value) {
     int i = 0;
     int result = -1;
     auto currentNode = headNode;
     do {
-        if (currentNode->value == value) result = i;
+        if (*currentNode->value == value) result = i;
         i ++;
         currentNode = currentNode->next;
     } while (currentNode->next);
