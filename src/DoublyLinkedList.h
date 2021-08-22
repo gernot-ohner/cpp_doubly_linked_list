@@ -7,38 +7,140 @@
 
 #include <memory>
 #include <vector>
+#include <string>
+#include <sstream>
 
-// start simple, just it's just a DLL of integers
+template<typename T>
 struct Node {
-    std::shared_ptr<std::string> value;
+    std::shared_ptr<T> value;
     std::shared_ptr<Node> next;
     std::shared_ptr<Node> prev;
 };
 
+template<typename T>
 class DoublyLinkedList {
 public:
-    explicit DoublyLinkedList(std::string value);
 
-    [[nodiscard]] int size() const;
-    std::string at(int index);
-    std::string head();
-    std::string tail();
+    // TODO Add constructor to create empty list
+    explicit DoublyLinkedList(T value) {
+        auto newHeadNode = std::make_shared<Node<T>>(Node<T>{.value = std::make_shared<T>(value)});
+        this->headNode = newHeadNode;
+        this->tailNode = newHeadNode;
+        this->numOfElements = 1;
+    }
 
-    void insert(int index, std::string value);
-    void add(std::string value);
+    [[nodiscard]] int size() const { return numOfElements; }
 
-    std::string toString();
+    T at(int index) {
+        if (index >= size()) {
+            std::stringstream message;
+            message << "Index ";
+            message << index ;
+            message << " is out of range for list of size " ;
+            message << size() ;
+            message << std::endl;
+            throw std::out_of_range(message.str());
+        }
 
-    void deleteAt(int index);
+        int i = 0;
+        auto currentNode = this->headNode;
+        while (i < index) {
+            currentNode = currentNode->next;
+            i++;
+        }
+        return *currentNode->value;
+    }
 
-    int find(std::string value);
+    T head() { return *this->headNode->value; }
+
+    T tail() { return *this->tailNode->value; }
+
+    void insert(int index, T value) {
+        if (index >= size() - 1) add(value);
+
+        int i = 0;
+        auto currentNode = headNode;
+        while (i < index - 1) {
+            currentNode = currentNode->next;
+            i++;
+        }
+        auto newNode = std::make_shared<Node<T>>(
+                Node<T>{.value = std::make_shared<T>(value)});
+        auto nextNode = currentNode->next;
+
+        currentNode->next = newNode;
+        newNode->prev = currentNode;
+        nextNode->prev = newNode;
+        newNode->next = nextNode;
+
+        numOfElements++;
+    }
+
+    void add(T value) {
+        auto newNode = std::make_shared<Node<T>>(Node<T>{.value = std::make_shared<T>(value)});
+        newNode->prev = this->tailNode;
+        this->tailNode->next = newNode;
+        this->tailNode = newNode;
+        this->numOfElements++;
+    }
+
+    // TODO ensure that this method works if the list is empty. Currently a segfault?
+    [[nodiscard]] std::string toString() const {
+        std::stringstream ss;
+        ss << "[";
+        auto currentNode = headNode;
+        ss << *currentNode->value;
+        int i = 1;
+        while (i < size()) {
+            i++;
+            currentNode = currentNode->next;
+            ss << "," << *currentNode->value;
+        }
+        ss << "]";
+        return ss.str();
+    }
+
+    void deleteAt(int index) {
+        if (index == size() - 1) {
+            dropLast();
+            return;
+        } else if (index > size() - 1) {
+            std::stringstream ss;
+            ss << "Index " << index << " is out of range for list of size " << size() << std::endl;
+            throw std::out_of_range(ss.str());
+        }
+
+        int i = 0;
+        auto currentNode = headNode;
+        while (i < index) {
+            currentNode = currentNode->next;
+            i++;
+        }
+        currentNode->prev->next = currentNode->next;
+        currentNode->next->prev = currentNode->prev;
+    }
+
+    int find(T value) {
+        int i = 0;
+        int result = -1;
+        auto currentNode = headNode;
+        do {
+            if (*currentNode->value == value) result = i;
+            i ++;
+            currentNode = currentNode->next;
+        } while (currentNode->next);
+
+        return result;
+    }
 
 private:
-    std::shared_ptr<Node> headNode;
-    std::shared_ptr<Node> tailNode;
-    int numOfElements;
+    std::shared_ptr<Node<T>> headNode;
+    std::shared_ptr<Node<T>> tailNode;
+    int numOfElements{};
 
-    void dropLast();
+    void dropLast() {
+        tailNode = tailNode->prev;
+    }
 };
 
 

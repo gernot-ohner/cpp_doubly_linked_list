@@ -10,5 +10,6 @@ add_executable(doubly_linked_list_tests
         test/test.cpp
         test/catch.hpp
         test/DoublyLinkedListTest.cpp
+        test/DoublyLinkedListIntTest.cpp
         )
 
